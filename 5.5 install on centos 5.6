@@ -1,4 +1,6 @@
 document link is http://www.percona.com/doc/percona-xtradb-cluster/5.5/howtos/cenots_howto.html
+This process will be made in all nodes..
+-------------------------------------------------
 delete all mysql rpms.
 #mysql rpms search and delete command.
 rpm -qa|grep -i mysql|xargs rpm -e --nodeps
@@ -20,3 +22,11 @@ wget http://www.rpmseek.com/download/ftp://ftp-stud.hs-esslingen.de/pub/epel/6/x
 
 #install socat rpm ..
 yum localinstall socat-1.7.2.3-1.el6.x86_64.rpm
+
+after all install
+We define the rights to create the directory to store the data.
+ #create dir and change owner 
+ mkdir -p /data/mysql
+ chown mysql:mysql /data/mysql
+ 
+------------------------------------------------------------------------------------------------------
