@@ -29,4 +29,42 @@ We define the rights to create the directory to store the data.
  mkdir -p /data/mysql
  chown mysql:mysql /data/mysql
  
+for 1 node.
+copy node1_my.cnf to my.cnf in /etc directory
+
+#create default db...
+mysql_install_db or /etc/init.d/mysql bootstrap-pxc
+----
+[root@percona1 mysql]# mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7
+Server version: 5.5.41-37.0-55 Percona XtraDB Cluster (GPL), Release rel37.0, Revision 853, WSREP version 25.11, wsrep_25.11.r4027
+
+Copyright (c) 2009-2014 Percona LLC and/or its affiliates
+Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> UPDATE mysql.user SET password=PASSWORD("Passw0rd") where user='root';
+Query OK, 4 rows affected (0.03 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql>  CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 's3cr3t';
+Query OK, 0 rows affected (0.43 sec)
+
+mysql> GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'sstuser'@'localhost';
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+-----
+
+for all nodes.
+Firewall has been set up to allow connecting to ports 3306, 4444, 4567 and 4568
+SELinux is disabled
+
 ------------------------------------------------------------------------------------------------------
