@@ -1,0 +1,22 @@
+document link is http://www.percona.com/doc/percona-xtradb-cluster/5.5/howtos/cenots_howto.html
+delete all mysql rpms.
+#mysql rpms search and delete command.
+rpm -qa|grep -i mysql|xargs rpm -e --nodeps
+
+add yum percona repository
+#yum repository add via rpm command.
+rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm
+
+install percona rpms packages 
+#install rpms package which percona mysql cluster server via rpm command
+yum install Percona-XtraDB-Cluster-server-55.x86_64  Percona-XtraDB-Cluster-client-55.x86_64 Percona-XtraDB-Cluster-galera-2.x86_64
+
+if when install rpm packages get require socat errors.
+install socat package..
+i find socat rpm this link.
+http://www.rpmseek.com/download/ftp://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/socat-1.7.2.3-1.el6.x86_64.rpm?hl=com&nid=57357:592
+#download socat rpm with wget
+wget http://www.rpmseek.com/download/ftp://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/socat-1.7.2.3-1.el6.x86_64.rpm?hl=com&nid=57357:592
+
+#install socat rpm ..
+yum localinstall socat-1.7.2.3-1.el6.x86_64.rpm
